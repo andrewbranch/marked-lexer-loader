@@ -14,7 +14,8 @@ module.exports = (fixture, options) => {
       rules: [{
         test: /\.md$/,
         use: {
-          loader: path.resolve(__dirname, '../lib/loader.js')
+          loader: path.resolve(__dirname, '../lib/loader.js'),
+          options
         }
       }]
     }
