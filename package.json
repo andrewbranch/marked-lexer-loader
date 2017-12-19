@@ -1,0 +1,35 @@
+{
+  "name": "marked-lexer-loader",
+  "version": "1.0.0",
+  "description": "A Webpack loader that uses marked to lex Markdown input and exports the lexer output.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/andrewbranch/marked-lexer-loader.git"
+  },
+  "keywords": [
+    "Webpack",
+    "loader",
+    "Markdown",
+    "marked"
+  ],
+  "author": "Andrew Branch <andrew@wheream.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andrewbranch/marked-lexer-loader/issues"
+  },
+  "homepage": "https://github.com/andrewbranch/marked-lexer-loader#readme",
+  "dependencies": {
+    "loader-utils": "^1.1.0",
+    "marked": "^0.3.7",
+    "schema-utils": "^0.4.3"
+  },
+  "devDependencies": {
+    "jest": "^22.0.1",
+    "memory-fs": "^0.4.1",
+    "webpack": "^3.10.0"
+  }
+}
