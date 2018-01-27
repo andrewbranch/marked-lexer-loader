@@ -6,16 +6,22 @@ This loader does _not_ render Markdown to HTML. There are already [several loade
 
 ## Usage
 
+`markdown-lexer-loader` emits raw JSON, so you need to use `json-loader` in front of it in order to use the output in a JavaScript module.
+
 ```js
 module: {
   rules: [{
     test: /\.md$/,
-    use: {
-      loader: 'markdown-lexer-loader',
-      options: {
-        // All options are passed to marked, merging with marked’s defaults:
-        // https://github.com/chjj/marked#options-1
+    use: [
+      'json-loader',
+      {
+        loader: 'markdown-lexer-loader',
+        options: {
+          // All options are passed to marked, merging with marked’s defaults:
+          // https://github.com/chjj/marked#options-1
+        }
       }
+    ]
   }]
 }
 ```
@@ -36,7 +42,7 @@ This is some Markdown
 turns into
 
 ```js
-export default [{"type":"heading","depth":1,"text":"Hello, world"},{"type":"paragraph","text":"This is some Markdown"}]
+{"nodes":[{"type":"heading","depth":1,"text":"Hello, world"},{"type":"paragraph","text":"This is some Markdown"}],"links":{}}
 ```
 
 ## Testing & contributing
