@@ -5,13 +5,15 @@ const compiler = require('./compiler');
 const markdownSource = fs.readFileSync(path.resolve(__dirname, 'example.md'), 'utf8');
 
 const modifyingOptions = { gfm: false };
-const defaultOutput = JSON.stringify(marked.lexer(markdownSource));
-const modifiedOutput = JSON.stringify(marked.lexer(markdownSource, Object.assign({}, marked.options().defaults, modifyingOptions)));
+const markedDefault = marked.lexer(markdownSource);
+const defaultOutput = JSON.stringify({ nodes: markedDefault, links: markedDefault.links });
+const markedModified = marked.lexer(markdownSource, Object.assign({}, marked.options().defaults, modifyingOptions));
+const modifiedOutput = JSON.stringify({ nodes: markedModified, links: markedModified.links });
 
 test('outputs lexer output', done => {
   compiler('example.md').then(stats => {
     const output = stats.toJson().modules[0].source;
-    expect(output).toBe(`export default ${defaultOutput}`);
+    expect(output).toBe(`module.exports = ${defaultOutput}`);
     done();
   })
 });
@@ -22,7 +24,7 @@ test('passes marked options to marked', done => {
   expect(modifiedOutput).not.toBe(defaultOutput);
   compiler('example.md', modifyingOptions).then(stats => {
     const output = stats.toJson().modules[0].source;
-    expect(output).toBe(`export default ${modifiedOutput}`);
+    expect(output).toBe(`module.exports = ${modifiedOutput}`);
     done();
   })
 });
